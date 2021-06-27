@@ -3,7 +3,9 @@
         <base-button @click="setSelectedTab('stored-resources')" :mode="storedResButtonMode">Stored resources</base-button>
         <base-button @click="setSelectedTab('add-resource')" :mode="addResButtonMode">Add resource</base-button>
     </base-card>
-    <component :is="selectedTab"></component>
+    <keep-alive>
+        <component :is="selectedTab"></component>
+    </keep-alive>
 </template>
 
 <script>
