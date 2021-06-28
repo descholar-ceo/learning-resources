@@ -2,6 +2,7 @@
     <base-dialog
         v-if="inputDataIsInvalid"
         title="Invalid input"
+        @close="confirmError"
     >
     <template #default>
         <p>There are/is some inputs(s) which miss some characters</p>
