@@ -1,4 +1,15 @@
 <template>
+    <base-dialog
+        v-if="inputDataIsInvalid"
+        title="Invalid input"
+    >
+    <template #default>
+        <p>There are/is some inputs(s) which miss some characters</p>
+    </template>
+    <template #actions>
+        <base-button @click="confirmError">Okay</base-button>
+    </template>
+    </base-dialog>
     <base-card>
         <form @submit.prevent="submitData">
             <div class="form-control">
@@ -21,10 +32,14 @@
 </template>
 
 <script>
+import BaseButton from '../UI/BaseButton.vue'
 export default {
+  components: { BaseButton },
     inject: ['addResource'],
     data(){
-        return{}
+        return{
+            inputDataIsInvalid: false
+        }
     },
     methods: {
         submitData(){
@@ -32,10 +47,13 @@ export default {
             const enteredDescription = this.$refs.descInput.value
             const enteredLink = this.$refs.linkInput.value
             if(enteredTitle.trim()==='' || enteredDescription.trim() === '' || enteredLink.trim()===''){
-                
+                this.inputDataIsInvalid = true;
                 return;
             }
             this.addResource(enteredTitle, enteredDescription, enteredLink);
+        },
+        confirmError(){
+            this.inputDataIsInvalid = false;
         }
     }
 }
